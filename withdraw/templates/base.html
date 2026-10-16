@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Réseau Satellite Starlink{% endblock %}</title>
+    <link rel="icon" type="image/png" href="{% static 'images/starlinkk.png' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --mc-blue: #1A3C8F;
+            --mc-dark-blue: #122A6B;
+            --airtel-red: #E60000;
+            --airtel-dark-red: #CC0000;
+        }
+        .mc-blue-bg {
+            background-color: var(--mc-blue);
+        }
+        .mc-gradient {
+            background: linear-gradient(135deg, var(--mc-blue) 0%, var(--mc-dark-blue) 100%);
+        }
+        .airtel-red-bg {
+            background-color: var(--airtel-red);
+        }
+        .airtel-gradient {
+            background: linear-gradient(135deg, var(--airtel-red) 0%, var(--airtel-dark-red) 100%);
+        }
+        .card-shadow {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .package-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .package-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+        .package-card.selected {
+            border: 2px solid var(--mc-blue);
+            background-color: #f0f4ff;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-[#1A3C8F] text-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-3 py-2 flex items-center justify-between">
+            <a href="{% url 'landing_page' %}" class="flex items-center gap-2">
+                <img src="{% static 'images/starlinkk.png' %}" alt="Starlink" class="h-12 object-contain bg-white rounded-md p-1">
+            </a>
+            <nav class="flex gap-6">
+                <a href="{% url 'network_dashboard' %}" class="text-blue-200 hover:text-white flex items-center gap-2">
+                    <i class="uil uil-wifi"></i> <span class="hidden sm:inline">Statut</span>
+                </a>
+                <a href="{% url 'plans_page' %}" class="text-blue-200 hover:text-white flex items-center gap-2">
+                    <i class="uil uil-home"></i> <span class="hidden sm:inline">Plans</span>
+                </a>
+                {% if user.is_authenticated and user.is_staff %}
+                <a href="{% url 'all_applications' %}" class="text-blue-200 hover:text-white flex items-center gap-2">
+                    <i class="uil uil-list-ul"></i> <span class="hidden sm:inline">Enregistrements</span>
+                </a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    <!-- Messages -->
+    {% if messages %}
+    <div class="max-w-7xl mx-auto px-4 py-4">
+        {% for message in messages %}
+        <div class="p-4 rounded-lg mb-4 {% if message.tags == 'error' %}bg-red-100 text-red-700{% elif message.tags == 'success' %}bg-green-100 text-green-700{% else %}bg-blue-100 text-blue-700{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-2 py-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#1A3C8F] text-blue-100 py-6 mt-8">
+        <div class="max-w-7xl mx-auto px-3">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div>
+                    <h3 class="text-white font-bold mb-4">RÉSEAU SATELLITE Starlink</h3>
+                    <p class="text-sm">Revendeur autorisé de services de données Starlink en République Démocratique du Congo. Paiements rapides, fiables et sécurisés via Airtel Money.</p>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-4">SUPPORT</h3>
+                    <p class="text-sm">Email: support@Starlink.cd</p>
+                    <p class="text-sm">Disponible 24h/24 pour l'assistance technique.</p>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-4">PAIEMENT</h3>
+                    <p class="text-sm">Payez en toute sécurité avec Airtel Money. Assurez-vous d'avoir un solde suffisant pour le plan sélectionné.</p>
+                </div>
+            </div>
+            <div class="border-t border-blue-700 pt-4 text-center">
+                <p>&copy; 2026 Réseau Satellite Starlink. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

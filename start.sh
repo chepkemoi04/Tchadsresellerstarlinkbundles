@@ -1,0 +1,1 @@
+gunicorn airtel_project.wsgi:application

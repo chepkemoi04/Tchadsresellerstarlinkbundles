@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Statut du Réseau - Starlink Satellite{% endblock %}
+{% block content %}
+<div class="pb-20 space-y-4">
+    <div class="relative overflow-hidden bg-white rounded-2xl p-0.5 card-shadow">
+        <button onclick="window.location.href='{% url 'plans_page' %}'"
+                class="w-full bg-gradient-to-r from-[#1A3C8F] via-[#1e4aa8] to-[#122A6B] hover:from-[#122A6B] hover:to-[#0e1f52] text-white font-black py-4 rounded-xl transition-all transform active:scale-95 flex items-center justify-center gap-2 shadow-lg animate-pulse">
+            <i class="uil uil-shopping-bag text-xl"></i>
+            <span class="text-base uppercase tracking-wider">Choisir Votre Plan</span>
+        </button>
+    </div>
+    <div class="bg-gradient-to-br from-[#1A3C8F] to-[#122A6B] text-white p-4 sm:p-5 rounded-2xl card-shadow">
+        <div class="flex items-center justify-between mb-3">
+            <div>
+                <p class="text-blue-300 text-[10px] font-semibold uppercase tracking-widest">Statut du Service</p>
+                <h1 class="text-xl sm:text-2xl font-black mt-1">Réseau Starlink Chad</h1>
+            </div>
+            <div class="w-12 h-12 bg-blue-500 bg-opacity-20 rounded-full flex items-center justify-center">
+                <i class="uil uil-tv-retro text-2xl text-blue-300"></i>
+            </div>
+        </div>
+        <p class="text-blue-200 text-xs">Sélectionnez un plan pour activer votre abonnement.</p>
+    </div>
+    <div class="grid grid-cols-2 gap-3">
+        <div class="bg-white rounded-xl p-3 card-shadow border border-gray-100 text-center">
+            <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-1">Téléchargement</p>
+            <p class="text-xl sm:text-2xl font-black text-gray-900" id="download-speed">--</p>
+            <p class="text-gray-400 text-[10px] mt-0.5">Mbps</p>
+        </div>
+        <div class="bg-white rounded-xl p-3 card-shadow border border-gray-100 text-center">
+            <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-1">Téléversement</p>
+            <p class="text-xl sm:text-2xl font-black text-gray-900" id="upload-speed">--</p>
+            <p class="text-gray-400 text-[10px] mt-0.5">Mbps</p>
+        </div>
+        <div class="bg-white rounded-xl p-3 card-shadow border border-gray-100 text-center">
+            <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-1">Ping</p>
+            <p class="text-xl sm:text-2xl font-black text-gray-900" id="ping">--</p>
+            <p class="text-gray-400 text-[10px] mt-0.5">ms</p>
+        </div>
+        <div class="bg-white rounded-xl p-3 card-shadow border border-gray-100 text-center">
+            <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-1">Gigue</p>
+            <p class="text-xl sm:text-2xl font-black text-gray-900" id="jitter">--</p>
+            <p class="text-gray-400 text-[10px] mt-0.5">ms</p>
+        </div>
+    </div>
+    <div class="bg-white rounded-xl p-4 card-shadow border border-gray-100">
+        <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+                <i class="uil uil-database text-[#1A3C8F] text-xl"></i>
+                <h3 class="text-sm font-bold text-gray-900">Utilisation des Données</h3>
+            </div>
+            <span class="text-[10px] font-semibold text-gray-600 bg-gray-100 px-2 py-0.5 rounded-full" id="data-percentage">0%</span>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-2 mb-2 overflow-hidden">
+            <div class="bg-gradient-to-r from-[#1A3C8F] to-[#E60000] h-full rounded-full transition-all duration-500" id="data-progress" style="width: 0%"></div>
+        </div>
+        <div class="flex justify-between text-[10px] text-gray-500">
+            <span id="data-used">0 GB</span>
+            <span id="data-limit">100 GB</span>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 gap-3">
+        <button onclick="runSpeedTest()" class="w-full bg-white border border-gray-200 text-gray-900 font-bold py-3 rounded-xl transition transform active:scale-95 flex items-center justify-center gap-2 card-shadow">
+            <i class="uil uil-bolt text-[#1A3C8F]"></i> Exécuter le Test de Diagnostic
+        </button>
+    </div>
+</div>
+<nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-2xl z-40">
+    <div class="max-w-7xl mx-auto px-2 sm:px-4 py-2 sm:py-3 flex justify-around items-center">
+        <a href="{% url 'network_dashboard' %}" class="flex flex-col items-center gap-1 text-[#1A3C8F] transition-all">
+            <i class="uil uil-wifi text-2xl"></i>
+            <span class="text-xs font-semibold">Statut</span>
+        </a>
+        <a href="{% url 'plans_page' %}" class="flex flex-col items-center gap-1 text-gray-600 hover:text-[#1A3C8F] transition-all">
+            <i class="uil uil-shopping-bag text-2xl"></i>
+            <span class="text-xs font-semibold">Plans</span>
+        </a>
+        {% if user.is_authenticated and user.is_staff %}
+        <a href="{% url 'all_applications' %}" class="flex flex-col items-center gap-1 text-gray-600 hover:text-[#1A3C8F] transition-all">
+            <i class="uil uil-list-ul text-2xl"></i>
+            <span class="text-xs font-semibold">Enregistrements</span>
+        </a>
+        {% endif %}
+        <a href="#" class="flex flex-col items-center gap-1 text-gray-600 hover:text-[#1A3C8F] transition-all">
+            <i class="uil uil-setting text-2xl"></i>
+            <span class="text-xs font-semibold">Paramètres</span>
+        </a>
+    </div>
+</nav>
+<script>
+    function generateNetworkStats() {
+        return {
+            download: (Math.random() * 100 + 100).toFixed(2),
+            upload: (Math.random() * 20 + 20).toFixed(2),
+            ping: Math.floor(Math.random() * 40 + 20),
+            jitter: Math.floor(Math.random() * 8 + 2),
+            dataUsed: (Math.random() * 30 + 20).toFixed(1),
+            dataLimit: 100
+        };
+    }
+    function updateNetworkStats() {
+        const stats = generateNetworkStats();
+        document.getElementById('download-speed').textContent = stats.download;
+        document.getElementById('upload-speed').textContent = stats.upload;
+        document.getElementById('ping').textContent = stats.ping;
+        document.getElementById('jitter').textContent = stats.jitter;
+        document.getElementById('data-used').textContent = stats.dataUsed + ' GB';
+        document.getElementById('data-limit').textContent = stats.dataLimit + ' GB';
+        const percentage = (stats.dataUsed / stats.dataLimit * 100).toFixed(0);
+        document.getElementById('data-percentage').textContent = percentage + '%';
+        document.getElementById('data-progress').style.width = percentage + '%';
+    }
+    function runSpeedTest() {
+        const button = event.target.closest('button');
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="uil uil-spinner-alt animate-spin"></i> Analyse en cours...';
+        button.disabled = true;
+        setTimeout(() => {
+            updateNetworkStats();
+            button.innerHTML = originalText;
+            button.disabled = false;
+        }, 2500);
+    }
+    document.addEventListener('DOMContentLoaded', updateNetworkStats);
+</script>
+{% endblock %}

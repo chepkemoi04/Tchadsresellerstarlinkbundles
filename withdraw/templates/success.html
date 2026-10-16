@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Paiement Réussi - Réseau Starlink Chad{% endblock %}
+{% block content %}
+<div class="flex items-center justify-center min-h-[calc(100vh-100px)]">
+    <div class="w-full max-w-lg bg-white rounded-2xl card-shadow overflow-hidden border border-gray-100">
+        <!-- Success Header -->
+        <div class="bg-[#1A3C8F] p-6 text-center text-white">
+            <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                <i class="uil uil-check text-4xl"></i>
+            </div>
+            <h1 class="text-2xl font-bold">Paiement Réussi!</h1>
+            <p class="text-blue-100 mt-1 text-sm">Votre plan Starlink a été renouvelé.</p>
+        </div>
+        <!-- Order Details -->
+        <div class="p-5">
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <div>
+                    <h3 class="text-gray-500 text-sm uppercase tracking-wider mb-1">Numéro Airtel</h3>
+                    <p class="text-lg font-bold text-gray-800">{{ order.phone_number }}</p>
+                </div>
+                <div>
+                    <h3 class="text-gray-500 text-sm uppercase tracking-wider mb-1">ID de Commande</h3>
+                    <p class="text-lg font-bold text-gray-800">#AIR-{{ order.id|stringformat:"05d" }}</p>
+                </div>
+                <div>
+                    <h3 class="text-gray-500 text-sm uppercase tracking-wider mb-1">Plan Starlink</h3>
+                    <p class="text-lg font-bold text-gray-800">{{ order.package_name }}</p>
+                </div>
+                <div>
+                    <h3 class="text-gray-500 text-sm uppercase tracking-wider mb-1">Montant Payé</h3>
+                    <p class="text-lg font-bold text-gray-800">CFA{{ order.amount }}</p>
+                </div>
+                <div>
+                    <h3 class="text-gray-500 text-sm uppercase tracking-wider mb-1">ID de Compte</h3>
+                    <p class="text-lg font-bold text-gray-800">{{ order.starlink_kit_id }}</p>
+                </div>
+                <div>
+                    <h3 class="text-gray-500 text-sm uppercase tracking-wider mb-1">Statut</h3>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                        Actif
+                    </span>
+                </div>
+            </div>
+            <div class="bg-blue-50 rounded-xl p-4 border border-blue-100 mb-6">
+                <div class="flex gap-3">
+                    <i class="uil uil-info-circle text-xl text-[#1A3C8F]"></i>
+                    <div>
+                        <h4 class="font-bold text-blue-900 text-sm">Prochaines Étapes</h4>
+                        <p class="text-blue-800 text-xs mt-0.5">L'activation prend 15-30 minutes. Vous recevrez un SMS de confirmation Airtel Money.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a href="{% url 'landing_page' %}" class="flex-1 bg-[#1A3C8F] text-white text-center font-bold py-4 rounded-xl hover:bg-[#122A6B] transition">
+                    Retour à l'Accueil
+                </a>
+                <button onclick="window.print()" class="flex-1 bg-gray-100 text-gray-800 text-center font-bold py-4 rounded-xl hover:bg-gray-200 transition">
+                    Télécharger le Reçu
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

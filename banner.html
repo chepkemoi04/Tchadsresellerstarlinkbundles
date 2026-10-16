@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starlink Satellite Network Banner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes pulse-signal {
+            0%, 100% { opacity: 0.3; transform: scaleY(1); }
+            50% { opacity: 0.9; transform: scaleY(1.05); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .signal-beam {
+            animation: pulse-signal 2s infinite ease-in-out;
+        }
+        .floating-device {
+            animation: float 4s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 flex justify-center items-center min-h-screen p-4">
+    <!-- MAIN AD BANNER CONTAINER -->
+    <div class="relative w-full max-w-4xl bg-gradient-to-b from-[#0d1f5c] via-[#1A3C8F] to-[#0e1f52] text-white rounded-2xl overflow-hidden shadow-2xl border border-blue-800 font-sans">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-700/20 via-transparent to-transparent pointer-events-none"></div>
+        <div class="absolute top-12 left-1/4 w-1 h-1 bg-white rounded-full opacity-50 animate-ping"></div>
+        <div class="absolute top-24 right-1/3 w-1.5 h-1.5 bg-blue-300 rounded-full opacity-70"></div>
+        <!-- Banner Content Grid -->
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-4 p-5 lg:p-8 items-center">
+            <!-- LEFT COLUMN: Headline & Value Prop -->
+            <div class="lg:col-span-7 space-y-4">
+                <div class="inline-flex items-center gap-2 bg-blue-400/10 border border-blue-400/30 px-3 py-1 rounded-full text-blue-300 text-xs font-semibold tracking-widest uppercase">
+                    <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+                    Zimbabwe's Satellite Voice &amp; Data Network
+                </div>
+                <h1 class="text-3xl lg:text-4xl font-black tracking-tight leading-tight">
+                    Calls. SMS. Data. Starlink.<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-red-400">Pay Instantly with EcoCash.</span>
+                </h1>
+                <p class="text-gray-300 text-base max-w-lg leading-relaxed">
+                    Voice minutes for all networks, unlimited SMS, data bundles, and Starlink subscriptions. Secure, fast, and powered by EcoCash — Zimbabwe's most trusted mobile money platform.
+                </p>
+                <!-- Key Features -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="flex items-center gap-2 text-sm text-gray-300">
+                        <span class="text-blue-400">✓</span> Voice Minutes (All Networks)
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-gray-300">
+                        <span class="text-blue-400">✓</span> SMS Bundles
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-gray-300">
+                        <span class="text-blue-400">✓</span> Instant EcoCash Payment
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-gray-300">
+                        <span class="text-blue-400">✓</span> Activated in 15–30 Minutes
+                    </div>
+                </div>
+                <!-- Pricing Teaser -->
+                <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 inline-block">
+                    <p class="text-xs text-gray-400 uppercase tracking-widest mb-1">Plans from</p>
+                    <p class="text-3xl font-black text-white">CFA1<span class="text-base font-normal text-gray-300"></span></p>
+                    <p class="text-xs text-blue-300 mt-1">200 Min (All Networks) · 1000 SMS · 1GB Data</p>
+                </div>
+            </div>
+            <!-- RIGHT COLUMN: Visual Concept -->
+            <div class="lg:col-span-5 flex flex-col items-center justify-center relative h-64 lg:h-auto py-6">
+                <!-- Starlink Logo (Top) -->
+                <div class="floating-device z-20 flex flex-col items-center">
+                    <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-xl backdrop-blur-sm flex flex-col items-center gap-2">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663825796442/udXgDwJafdZEoMGW.png" alt="Starlink" class="h-12 object-contain">
+                        <p class="text-[10px] text-gray-400 uppercase font-bold tracking-widest">Satellite Network</p>
+                    </div>
+                </div>
+                <!-- Signal Beam -->
+                <div class="signal-beam my-2 w-1.5 h-20 bg-gradient-to-b from-blue-400 via-blue-500 to-transparent rounded-full shadow-[0_0_15px_rgba(59,130,246,0.7)]"></div>
+                <!-- Smartphone (Bottom) -->
+                <div class="z-20 bg-gradient-to-b from-gray-800 to-gray-950 p-2.5 rounded-[2.5rem] shadow-2xl border-2 border-gray-700 w-48 text-center transform -rotate-6">
+                    <div class="bg-gray-900 rounded-[2.2rem] p-3 pt-4 border border-gray-800 relative overflow-hidden">
+                        <!-- Notch -->
+                        <div class="w-16 h-3.5 bg-black rounded-full mx-auto mb-3"></div>
+                        <!-- Screen Data -->
+                        <div class="text-blue-300 font-bold text-xs tracking-widest flex items-center justify-center gap-1">
+                            <span>💳</span> ECOCASH
+                        </div>
+                        <div class="text-2xl font-black text-white my-1 tracking-tight">$25<span class="text-xs font-normal text-gray-400">USD</span></div>
+                        <div class="w-full bg-blue-500/20 rounded-full h-1 mt-2">
+                            <div class="bg-blue-400 h-1 rounded-full w-4/5"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- BOTTOM SECTION: PACKAGES & CALL TO ACTION -->
+        <div class="border-t border-blue-800/60 bg-black/40 backdrop-blur-md p-5">
+            <p class="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Select From Our 2026 Starlink Satellite Network Plans</p>
+            <!-- Packages Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto mb-8">
+                <!-- Card 1 -->
+                <div class="bg-slate-900/60 border border-gray-800 p-4 rounded-xl text-center hover:border-blue-500/40 transition duration-300">
+                    <h3 class="font-bold text-sm text-gray-400 uppercase tracking-wider">📱 Basic Satellite</h3>
+                    <p class="text-2xl font-extrabold text-white my-1">$1</p>
+                    <p class="text-xs text-gray-400">200 Min (All Networks) · 1000 SMS · 1GB</p>
+                </div>
+                <!-- Card 2 (Featured) -->
+                <div class="bg-gradient-to-b from-slate-900 to-blue-950/40 border-2 border-blue-500/50 p-4 rounded-xl text-center relative transform lg:-translate-y-1">
+                    <span class="absolute -top-2.5 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white text-[9px] font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider">Most Popular</span>
+                    <h3 class="font-bold text-sm text-blue-400 uppercase tracking-wider">🚀 Starlink Compact Pro</h3>
+                    <p class="text-2xl font-extrabold text-white my-1">$25</p>
+                    <p class="text-xs text-blue-200">2000 Min · Unlimited SMS · 20GB · Starlink</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-slate-900/60 border border-gray-800 p-4 rounded-xl text-center hover:border-blue-500/40 transition duration-300">
+                    <h3 class="font-bold text-sm text-gray-400 uppercase tracking-wider">👑 Unlimited Pro</h3>
+                    <p class="text-2xl font-extrabold text-white my-1">$50</p>
+                    <p class="text-xs text-gray-400">Unlimited Min · Unlimited SMS · Unlimited Data</p>
+                </div>
+            </div>
+            <!-- BUTTON CTA -->
+            <div class="text-center">
+                <a href="https://Starlink-econet.onrender.com/" target="_blank" class="inline-block bg-gradient-to-r from-[#1A3C8F] to-[#E31837] hover:from-[#122A6B] hover:to-[#B8102B] text-white font-black text-base tracking-wide px-8 py-4 rounded-full shadow-[0_0_20px_rgba(26,60,143,0.4)] transition duration-300 transform hover:scale-105">
+                    💳 ACTIVATE INSTANTLY AT: Starlink-satellite.onrender.com
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

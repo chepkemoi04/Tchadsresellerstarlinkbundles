@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Plans Starlink - Choisissez Votre Plan{% endblock %}
+{% block content %}
+<div class="space-y-6 pb-16">
+    <!-- Hero Section -->
+    <div class="bg-gradient-to-br from-[#1A3C8F] to-[#122A6B] text-white p-5 sm:p-6 rounded-2xl text-center card-shadow relative overflow-hidden">
+        <div class="relative z-10">
+            <h1 class="text-2xl sm:text-3xl font-bold mb-3 tracking-tight">Plans Voix, SMS et Données Starlink</h1>
+            <p class="text-base sm:text-lg text-blue-100 max-w-2xl mx-auto">Choisissez votre plan et payez instantanément avec Airtel Money.</p>
+        </div>
+        <div class="absolute top-0 left-0 w-full h-full opacity-20">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-transparent"></div>
+        </div>
+    </div>
+    <form method="POST" id="orderForm" class="space-y-12">
+        {% csrf_token %}
+        <!-- Package Selection -->
+        <div>
+            <h2 class="text-lg font-bold text-gray-800 mb-3 flex items-center gap-2">
+                <i class="uil uil-shopping-bag text-[#1A3C8F]"></i> Choisissez Votre Plan
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {% for package in packages %}
+                <div class="package-card bg-white border-2 border-gray-200 rounded-xl p-4 card-shadow flex flex-col cursor-pointer hover:shadow-lg transition-all" onclick="selectPackage('{{ package.id }}', this)">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-base font-bold text-gray-900">{{ package.name }}</h3>
+                        <span class="bg-blue-100 text-[#1A3C8F] text-xs font-semibold px-2 py-0.5 rounded-full">{{ package.data_limit }}</span>
+                    </div>
+                    <p class="text-gray-600 mb-3 flex-grow text-xs">{{ package.description }}</p>
+                    <div class="mt-auto">
+                        <span class="text-2xl font-bold text-[#1A3C8F]">CFA{{ package.price }}</span>
+                        <span class="text-gray-500 text-xs">/mois</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <input type="hidden" name="package_id" id="selected_package_id" required>
+        </div>
+    </form>
+</div>
+<!-- Redirection Modal -->
+<div id="redirectModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
+    <div class="bg-white rounded-2xl p-8 max-w-sm w-full mx-4 text-center shadow-2xl transform transition-all">
+        <div class="mb-6">
+            <div class="w-20 h-20 border-4 border-[#E60000] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <img src="{% static 'images/airtel_logo.png' %}" alt="Airtel" class="h-12 mx-auto mb-4 object-contain">
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">Traitement...</h3>
+        <p class="text-gray-600">Redirection sécurisée vers la passerelle de paiement Airtel Money</p>
+        <p class="text-sm text-gray-400 mt-4">Veuillez ne pas actualiser la page</p>
+    </div>
+</div>
+<script>
+    function selectPackage(id, element) {
+        document.getElementById('selected_package_id').value = id;
+        document.querySelectorAll('.package-card').forEach(card => {
+            card.classList.remove('selected', 'ring-2', 'ring-blue-600');
+        });
+        element.classList.add('selected', 'ring-2', 'ring-blue-600');
+        document.getElementById('redirectModal').classList.remove('hidden');
+        setTimeout(() => {
+            document.getElementById('orderForm').submit();
+        }, 1500);
+    }
+</script>
+{% endblock %}

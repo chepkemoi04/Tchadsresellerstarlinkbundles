@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Accès Refusé - Airtel Chad{% endblock %}
+{% block content %}
+<div class="flex items-center justify-center min-h-[calc(100vh-100px)]">
+  <div class="w-full max-w-sm mx-auto px-4">
+    <div class="bg-white rounded-2xl card-shadow p-8 text-center">
+      <div class="mb-6">
+        <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <i class="uil uil-lock text-4xl text-red-600"></i>
+        </div>
+      </div>
+      <h1 class="text-2xl font-bold text-gray-900 mb-3">Accès Refusé</h1>
+      <p class="text-gray-600 mb-6">{{ message }}</p>
+      <p class="text-sm text-gray-500 mb-8">Ce service est disponible uniquement en République Démocratique du Congo.</p>
+      <a href="{% url 'landing_page' %}" class="inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-xl transition-all">
+        Retour à l'accueil
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}
