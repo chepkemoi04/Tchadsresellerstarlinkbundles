@@ -9,7 +9,7 @@ SECRET_KEY = 'heindnmskdkskmd'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['tchadstarlinkbundles.onrender.com']
+ALLOWED_HOSTS = ['Tchadresellerstarlinkbundles.onrender.com']
 
 
 INSTALLED_APPS = [
